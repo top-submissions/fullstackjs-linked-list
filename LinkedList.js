@@ -98,4 +98,62 @@ export class LinkedList {
 
     return current.value;
   }
+
+  /**
+   * Removes the first node from the list and returns its value
+   * @returns {*} The value of the removed head node, or undefined if empty
+   */
+  pop() {
+    if (this.headNode === null) {
+      return undefined;
+    }
+
+    const value = this.headNode.value;
+    this.headNode = this.headNode.nextNode;
+    return value;
+  }
+
+  /**
+   * Returns the value of the node at the given index
+   * @param {number} index - The index to retrieve (0-based)
+   * @returns {*} The value at the index, or undefined if not found
+   */
+  at(index) {
+    if (index < 0) {
+      return undefined;
+    }
+
+    let current = this.headNode;
+    let currentIndex = 0;
+
+    while (current !== null) {
+      if (currentIndex === index) {
+        return current.value;
+      }
+      current = current.nextNode;
+      currentIndex++;
+    }
+
+    return undefined;
+  }
+
+  /**
+   * Returns the index of the node containing the given value
+   * @param {*} value - The value to search for
+   * @returns {number} The index of the first matching node, or -1 if not found
+   */
+  findIndex(value) {
+    let current = this.headNode;
+    let index = 0;
+
+    while (current !== null) {
+      if (current.value === value) {
+        return index;
+      }
+      current = current.nextNode;
+      index++;
+    }
+
+    return -1;
+  }
 }
