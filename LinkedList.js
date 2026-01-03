@@ -187,9 +187,9 @@ export class LinkedList {
   insertAt(index, ...values) {
     const listSize = this.size();
 
-    if (index < 0 || index >= listSize) {
+    if (index < 0 || index > listSize) {
       throw new RangeError(
-        `Index ${index} is out of bounds. Valid range: 0 to ${listSize - 1}`
+        `Index ${index} is out of bounds. Valid range: 0 to ${listSize}`
       );
     }
 
@@ -199,7 +199,6 @@ export class LinkedList {
 
     // Special case: insert at beginning
     if (index === 0) {
-      // Insert starting from the end of values for proper ordering
       for (let i = values.length - 1; i >= 0; i--) {
         this.prepend(values[i]);
       }
