@@ -156,4 +156,98 @@ export class LinkedList {
 
     return -1;
   }
+
+  /**
+   * Returns a string representation of the LinkedList
+   * @returns {string} Formatted string like "( value ) -> ( value ) -> null"
+   */
+  toString() {
+    if (this.headNode === null) {
+      return '';
+    }
+
+    let result = '';
+    let current = this.headNode;
+
+    while (current !== null) {
+      result += `( ${current.value} ) -> `;
+      current = current.nextNode;
+    }
+
+    result += 'null';
+    return result;
+  }
+
+  /**
+   * Inserts new nodes with the given values at the specified index
+   * @param {number} index - The index to insert at (0-based)
+   * @param {...*} values - One or more values to insert
+   * @throws {RangeError} If index is out of bounds
+   */
+  insertAt(index, ...values) {
+    const listSize = this.size();
+
+    if (index < 0 || index >= listSize) {
+      throw new RangeError(
+        `Index ${index} is out of bounds. Valid range: 0 to ${listSize - 1}`
+      );
+    }
+
+    if (values.length === 0) {
+      return;
+    }
+
+    // Special case: insert at beginning
+    if (index === 0) {
+      // Insert starting from the end of values for proper ordering
+      for (let i = values.length - 1; i >= 0; i--) {
+        this.prepend(values[i]);
+      }
+      return;
+    }
+
+    // Find the node before the insertion point
+    let current = this.headNode;
+    for (let i = 0; i < index - 1; i++) {
+      current = current.nextNode;
+    }
+
+    // Insert all values
+    let insertionPoint = current;
+    for (const value of values) {
+      const newNode = new Node(value, insertionPoint.nextNode);
+      insertionPoint.nextNode = newNode;
+      insertionPoint = newNode;
+    }
+  }
+
+  /**
+   * Removes the node at the given index
+   * @param {number} index - The index to remove (0-based)
+   * @throws {RangeError} If index is out of bounds
+   */
+  removeAt(index) {
+    const listSize = this.size();
+
+    if (index < 0 || index >= listSize) {
+      throw new RangeError(
+        `Index ${index} is out of bounds. Valid range: 0 to ${listSize - 1}`
+      );
+    }
+
+    // Special case: remove first node
+    if (index === 0) {
+      this.headNode = this.headNode.nextNode;
+      return;
+    }
+
+    // Find the node before the one to remove
+    let current = this.headNode;
+    for (let i = 0; i < index - 1; i++) {
+      current = current.nextNode;
+    }
+
+    // Skip over the node to remove
+    current.nextNode = current.nextNode.nextNode;
+  }
 }
