@@ -39,4 +39,38 @@ export class LinkedList {
     const newNode = new Node(value, this.headNode);
     this.headNode = newNode;
   }
+
+  /**
+   * Returns the total number of nodes in the list
+   * @returns {number} The size of the list
+   */
+  size() {
+    let count = 0;
+    let current = this.headNode;
+
+    while (current !== null) {
+      count++;
+      current = current.nextNode;
+    }
+
+    return count;
+  }
+
+  /**
+   * Checks if the given value exists in the list
+   * @param {*} value - The value to search for
+   * @returns {boolean} True if value is found, false otherwise
+   */
+  contains(value) {
+    let current = this.headNode;
+
+    while (current !== null) {
+      if (current.value === value) {
+        return true;
+      }
+      current = current.nextNode;
+    }
+
+    return false;
+  }
 }
