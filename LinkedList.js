@@ -73,4 +73,29 @@ export class LinkedList {
 
     return false;
   }
+
+  /**
+   * Returns the value of the first node in the list
+   * @returns {*} The value of the head node, or undefined if list is empty
+   */
+  head() {
+    return this.headNode?.value;
+  }
+
+  /**
+   * Returns the value of the last node in the list
+   * @returns {*} The value of the tail node, or undefined if list is empty
+   */
+  tail() {
+    if (this.headNode === null) {
+      return undefined;
+    }
+
+    let current = this.headNode;
+    while (current.nextNode !== null) {
+      current = current.nextNode;
+    }
+
+    return current.value;
+  }
 }
